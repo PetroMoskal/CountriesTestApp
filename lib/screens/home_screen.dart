@@ -38,6 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<Countries>(context).foundItems;
     final bool isSearching = Provider.of<Countries>(context).loadingList;
     final bool isSearched = Provider.of<Countries>(context).isSearched;
+    bool searchIsEmpty;
+    if (foundCountries.isEmpty) {
+      searchIsEmpty = true;
+    } else {
+      searchIsEmpty = false;
+    }
 
     var appBarHomeScreen = AppBar(
       title: Text(widget.title),
@@ -89,10 +95,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child:
                                           CircularProgressIndicator.adaptive(),
                                     )
-                                  : ListView.builder(
-                                      itemCount: foundCountries.length,
-                                      itemBuilder: (context, i) =>
-                                          CountryItem(foundCountries[i])),
+                                  : searchIsEmpty
+                                      ? Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                              'Searched country is not found'),
+                                        )
+                                      : ListView.builder(
+                                          itemCount: foundCountries.length,
+                                          itemBuilder: (context, i) =>
+                                              CountryItem(foundCountries[i])),
                             )
                           : ListView.builder(
                               itemCount: allCountries.length,

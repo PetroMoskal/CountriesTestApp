@@ -16,7 +16,7 @@ class Countries with ChangeNotifier {
   String errorMessage;
 
   Future<void> fetchItems() async {
-    final String url = 'https://restcountries.eu/rest/v2/region/europe';
+    final String url = 'https://restcountries.eu/rest/v2/region/europes';
 
     try {
       final response = await http.get(Uri.parse(url));
